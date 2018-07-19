@@ -63,14 +63,8 @@ test("logHottestDays() - should log temperatures exceeding a specific threshhold
 test("logHottestDays() - should log temperatures in Celsius", () => {
   let temperatures = [32];
   let threshhold = 30;
-  //  sinon.spy(console, "log");
   const spy = jest.spyOn(console, 'log');
-
   logHottestDays(temperatures, threshhold);
-  //let calledWith = console.log.getCall(0).args[0];
-  console.log("---------------------------", spy.mock.calls)
   expect(spy.mock.calls[0][0]).toBe(0);
-  //expect(calledWith).toBe(0);
-  //console.log.restore();
   spy.mockRestore();
 });
