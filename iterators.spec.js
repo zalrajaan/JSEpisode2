@@ -1,101 +1,76 @@
 /**************************
-*
-* THIS IS A TESTING FILE
-*
-* DO NOT MODIFY THIS FILE
-*
-***************************/
+ *
+ * THIS IS A TESTING FILE
+ *
+ * DO NOT MODIFY THIS FILE
+ *
+ ***************************/
 
-import test from 'ava';
-import sinon from 'sinon';
-import {logger, toCelsius, hottestDays, logHottestDays} from './iterators'
+import { logger, toCelsius, hottestDays, logHottestDays } from "./iterators";
 
-
-
-test('logger() - should log every element in the array', t => {
-  sinon.spy(console, 'log')
-  logger([1,2,3,4,5]);
-  t.is(console.log.callCount, 5, "You didn't log the elements");
-  console.log.restore();
+test("logger() - should log every element in the array", () => {
+  const spy = jest.spyOn(console, 'log');
+  logger([1, 2, 3, 4, 5]);
+  expect(spy).toHaveBeenCalledTimes(5);
+  spy.mockRestore();
 });
 
-test('logger() - should use .forEach', t => {
-  let forEach = Array.prototype.forEach;
-  let called = false;
-  Array.prototype.forEach = () => called = true;
-  logger([1,2,3,4,5]);
-  t.true(called, "You didn't use .forEach");
-  Array.prototype.forEach = forEach;
+test("logger() - should use .forEach", () => {
+  const spy = jest.spyOn(Array.prototype, 'forEach');
+  logger([1, 2, 3, 4, 5]);
+  expect(spy.mock.calls.length).toBe(1);
+  spy.mockRestore();
 });
 
-
-
-test('toCelsius() - should convert temperatures from C to F', t => {
+test("toCelsius() - should convert temperatures from C to F", () => {
   let c = [0, 100, -40, 50, 12.5];
   let f = [32, 212, -40, 122, 54.5];
   let results = toCelsius(f);
-
-  t.deepEqual(results, c,
-    `Expected toCelsius(${JSON.stringify(f)})
-    to be ${JSON.stringify(c)}.
-    Got ${JSON.stringify(results)} instead`);
+  expect(results).toEqual(c);
 });
 
-test('toCelsius() - should use .map', t => {
-  sinon.spy(Array.prototype, 'map');
-  toCelsius([1,2,3,4,5]);
-  t.true(Array.prototype.map.called, "You didn't use .map");
-  Array.prototype.map.restore();
+test("toCelsius() - should use .map", () => {
+  const spy = jest.spyOn(Array.prototype, 'map');
+  toCelsius([1, 2, 3, 4, 5]);
+  expect(spy).toBeCalled();
+  spy.mockRestore()
 });
 
-
-
-test(
-  'hottestDays() - should return an array of temperatures exceeding a specific threshhold',
-  t => {
-    let temperatures = [0, -5, 35, 20, 45, 50, 10];
-    let threshhold = 30;
-    let expected = [35, 45, 50];
-    let result = hottestDays(temperatures, threshhold);
-    t.deepEqual(result, expected,
-      `Expected hottestDays(${JSON.stringify(temperatures)}, ${threshhold})
-      to return ${JSON.stringify(result)}.
-      Got ${JSON.stringify(result)} instead`);
+test("hottestDays() - should return an array of temperatures exceeding a specific threshhold", () => {
+  let temperatures = [0, -5, 35, 20, 45, 50, 10];
+  let threshhold = 30;
+  let expected = [35, 45, 50];
+  let result = hottestDays(temperatures, threshhold);
+  expect(result).toEqual(expected);
 });
 
-test('hottestDays() - should use .filter', t => {
-  sinon.spy(Array.prototype, 'filter');
-  hottestDays([1,2,3,4,5], 0);
-  t.true(Array.prototype.filter.called, "You didn't use .filter");
-  Array.prototype.filter.restore();
+test("hottestDays() - should use .filter", () => {
+  const spy = jest.spyOn(Array.prototype, 'filter');
+  hottestDays([1, 2, 3, 4, 5], 0);
+  expect(spy).toBeCalled();
+  spy.mockRestore()
 });
 
-
-
-test(
-  'logHottestDays() - should log temperatures exceeding a specific threshhold',
-  t => {
-    let temperatures = [32, 212, -40, 122, 54.5];
-    let threshhold = 30;
-    sinon.spy(console, 'log');
-    logHottestDays(temperatures, threshhold);
-    let count = console.log.callCount;
-    t.is(count, 4,
-      `For logHottestDays(${JSON.stringify(temperatures)}, ${threshhold}),
-      expected 4 elements to be logged. Logged ${count} times instead`);
-    console.log.restore();
+test("logHottestDays() - should log temperatures exceeding a specific threshhold", () => {
+  let temperatures = [32, 212, -40, 122, 54.5];
+  let threshhold = 30;
+  const spy = jest.spyOn(console, 'log');
+  logHottestDays(temperatures, threshhold);
+  expect(spy).toHaveBeenCalledTimes(4);
+  spy.mockRestore()
 });
 
-test(
-  'logHottestDays() - should log temperatures in Celsius',
-  t => {
-    let temperatures = [32];
-    let threshhold = 30;
-    sinon.spy(console, 'log');
-    logHottestDays(temperatures, threshhold);
-    let calledWith = console.log.getCall(0).args[0]
-    t.is(calledWith, 0,
-      `For logHottestDays(${JSON.stringify(temperatures)}, ${threshhold}),
-      it to log 0. ${calledWith} was logged instead`);
-    console.log.restore();
+test("logHottestDays() - should log temperatures in Celsius", () => {
+  let temperatures = [32];
+  let threshhold = 30;
+  //  sinon.spy(console, "log");
+  const spy = jest.spyOn(console, 'log');
+
+  logHottestDays(temperatures, threshhold);
+  //let calledWith = console.log.getCall(0).args[0];
+  console.log("---------------------------", spy.mock.calls)
+  expect(spy.mock.calls[0][0]).toBe(0);
+  //expect(calledWith).toBe(0);
+  //console.log.restore();
+  spy.mockRestore();
 });
