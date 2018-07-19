@@ -8,63 +8,82 @@
 
 import { logger, toCelsius, hottestDays, logHottestDays } from "./iterators";
 
-test("logger() - should log every element in the array", () => {
-  const spy = jest.spyOn(console, 'log');
-  logger([1, 2, 3, 4, 5]);
-  expect(spy).toHaveBeenCalledTimes(5);
-  spy.mockRestore();
+describe("logger()", () => {
+
+  test("should log every element in the array", () => {
+    const spy = jest.spyOn(console, 'log');
+    logger([1, 2, 3, 4, 5]);
+    expect(spy).toHaveBeenCalledTimes(5);
+    spy.mockRestore();
+  });
+
+  test("should use .forEach", () => {
+    const spy = jest.spyOn(Array.prototype, 'forEach');
+    logger([1, 2, 3, 4, 5]);
+    expect(spy.mock.calls.length).toBe(1);
+    spy.mockRestore();
+  });
+
 });
 
-test("logger() - should use .forEach", () => {
-  const spy = jest.spyOn(Array.prototype, 'forEach');
-  logger([1, 2, 3, 4, 5]);
-  expect(spy.mock.calls.length).toBe(1);
-  spy.mockRestore();
+
+describe("toCelsius()", () => {
+
+  test("should convert temperatures from C to F", () => {
+    let c = [0, 100, -40, 50, 12.5];
+    let f = [32, 212, -40, 122, 54.5];
+    let results = toCelsius(f);
+    expect(results).toEqual(c);
+  });
+
+  test("should use .map", () => {
+    const spy = jest.spyOn(Array.prototype, 'map');
+    toCelsius([1, 2, 3, 4, 5]);
+    expect(spy).toBeCalled();
+    spy.mockRestore()
+  });
+
 });
 
-test("toCelsius() - should convert temperatures from C to F", () => {
-  let c = [0, 100, -40, 50, 12.5];
-  let f = [32, 212, -40, 122, 54.5];
-  let results = toCelsius(f);
-  expect(results).toEqual(c);
+
+describe("hottestDays()", () => {
+
+  test("should return an array of temperatures exceeding a specific threshhold", () => {
+    let temperatures = [0, -5, 35, 20, 45, 50, 10];
+    let threshhold = 30;
+    let expected = [35, 45, 50];
+    let result = hottestDays(temperatures, threshhold);
+    expect(result).toEqual(expected);
+  });
+
+  test("should use .filter", () => {
+    const spy = jest.spyOn(Array.prototype, 'filter');
+    hottestDays([1, 2, 3, 4, 5], 0);
+    expect(spy).toBeCalled();
+    spy.mockRestore()
+  });
+
 });
 
-test("toCelsius() - should use .map", () => {
-  const spy = jest.spyOn(Array.prototype, 'map');
-  toCelsius([1, 2, 3, 4, 5]);
-  expect(spy).toBeCalled();
-  spy.mockRestore()
-});
 
-test("hottestDays() - should return an array of temperatures exceeding a specific threshhold", () => {
-  let temperatures = [0, -5, 35, 20, 45, 50, 10];
-  let threshhold = 30;
-  let expected = [35, 45, 50];
-  let result = hottestDays(temperatures, threshhold);
-  expect(result).toEqual(expected);
-});
+describe("logHottestDays()", () => {
 
-test("hottestDays() - should use .filter", () => {
-  const spy = jest.spyOn(Array.prototype, 'filter');
-  hottestDays([1, 2, 3, 4, 5], 0);
-  expect(spy).toBeCalled();
-  spy.mockRestore()
-});
+  test("should log temperatures exceeding a specific threshhold", () => {
+    let temperatures = [32, 212, -40, 122, 54.5];
+    let threshhold = 30;
+    const spy = jest.spyOn(console, 'log');
+    logHottestDays(temperatures, threshhold);
+    expect(spy).toHaveBeenCalledTimes(4);
+    spy.mockRestore()
+  });
 
-test("logHottestDays() - should log temperatures exceeding a specific threshhold", () => {
-  let temperatures = [32, 212, -40, 122, 54.5];
-  let threshhold = 30;
-  const spy = jest.spyOn(console, 'log');
-  logHottestDays(temperatures, threshhold);
-  expect(spy).toHaveBeenCalledTimes(4);
-  spy.mockRestore()
-});
+  test("should log temperatures in Celsius", () => {
+    let temperatures = [32];
+    let threshhold = 30;
+    const spy = jest.spyOn(console, 'log');
+    logHottestDays(temperatures, threshhold);
+    expect(spy.mock.calls[0][0]).toBe(0);
+    spy.mockRestore();
+  });
 
-test("logHottestDays() - should log temperatures in Celsius", () => {
-  let temperatures = [32];
-  let threshhold = 30;
-  const spy = jest.spyOn(console, 'log');
-  logHottestDays(temperatures, threshhold);
-  expect(spy.mock.calls[0][0]).toBe(0);
-  spy.mockRestore();
 });
