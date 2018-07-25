@@ -48,11 +48,11 @@ describe("toCelsius()", () => {
 
 describe("hottestDays()", () => {
 
-  test("should return an array of temperatures exceeding a specific threshhold", () => {
+  test("should return an array of temperatures exceeding a specific threshold", () => {
     let temperatures = [0, -5, 35, 20, 45, 50, 10];
-    let threshhold = 30;
+    let threshold = 30;
     let expected = [35, 45, 50];
-    let result = hottestDays(temperatures, threshhold);
+    let result = hottestDays(temperatures, threshold);
     expect(result).toEqual(expected);
   });
 
@@ -68,20 +68,20 @@ describe("hottestDays()", () => {
 
 describe("logHottestDays()", () => {
 
-  test("should log temperatures exceeding a specific threshhold", () => {
+  test("should log temperatures exceeding a specific threshold", () => {
     let temperatures = [32, 212, -40, 122, 54.5];
-    let threshhold = 30;
+    let threshold = 30;
     const spy = jest.spyOn(console, 'log');
-    logHottestDays(temperatures, threshhold);
+    logHottestDays(temperatures, threshold);
     expect(spy).toHaveBeenCalledTimes(4);
     spy.mockRestore()
   });
 
   test("should log temperatures in Celsius", () => {
     let temperatures = [32];
-    let threshhold = 30;
+    let threshold = 30;
     const spy = jest.spyOn(console, 'log');
-    logHottestDays(temperatures, threshhold);
+    logHottestDays(temperatures, threshold);
     expect(spy.mock.calls[0][0]).toBe(0);
     spy.mockRestore();
   });

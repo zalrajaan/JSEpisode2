@@ -26,33 +26,33 @@ const toCelsius = function (temperatures) {
 
 
 /**************************************
-* hottestDays(temperatures, threshhold)
+* hottestDays(temperatures, threshold)
 *
 * - Accepts an array of temperatures
-* - Accepts a threshhold temperature
+* - Accepts a threshold temperature
 * - Returns an array of temperatures
-*   that exceed the threshhold
+*   that exceed the threshold
 ***************************************/
-const hottestDays = function (temperatures, threshhold) {
+const hottestDays = function (temperatures, threshold) {
   // Your code here
 }
 
 
 /******************************************
-* logHottestDays(temperatures, threshhold)
+* logHottestDays(temperatures, threshold)
 *
 * - Accepts an array of temperatures
 *   IN DEGREES FAHRENHEINT
-* - Accepts a threshhold temperature
+* - Accepts a threshold temperature
 *   IN DEGREES FAHRENHEINT
 * - Logs temperatures that exceed the
-*   threshhold to the console
+*   threshold to the console
 *   IN DEGREES CELSIUS
 *
 * hint: you can combine
 *       all previous functions
 *******************************************/
-const logHottestDays = function (temperatures, threshhold) {
+const logHottestDays = function (temperatures, threshold) {
   // Your code here
 }
 

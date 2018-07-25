@@ -14,16 +14,16 @@ In this exercise your objective will be to write the following functions:
     * should use `map`
 
 
-* `hottestDays(temperatures, threshhold)`:
+* `hottestDays(temperatures, threshold)`:
     * takes an array of temperatures
-    * takes a threshhold
-    * returns an array with every temperature above the threshhold
+    * takes a threshold
+    * returns an array with every temperature above the threshold
     * should use `filter`
 
 
-* `logHottestDays(temperaturesInFahrenheit, threshhold)`:
+* `logHottestDays(temperaturesInFahrenheit, threshold)`:
     * takes an array of temperatures in Fahrenheit
-    * takes a threshhold
+    * takes a threshold
     * logs only temperatures that exceed the threshold from that array to the console
     * logs temperatures in Celsius.
 
