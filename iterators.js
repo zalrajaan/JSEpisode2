@@ -32,7 +32,7 @@ const toCelsius = function(temperatures) {
  *   that exceed the threshold
  ***************************************/
 const hottestDays = function(temperatures, threshold) {
-  // Your code here
+  return temperatures.filter(t => t > threshold);
 };
 
 /******************************************
@@ -50,7 +50,7 @@ const hottestDays = function(temperatures, threshold) {
  *       all previous functions
  *******************************************/
 const logHottestDays = function(temperatures, threshold) {
-  // Your code here
+  logger(toCelsius(hottestDays(temperatures, threshold)));
 };
 
 export { logger, toCelsius, hottestDays, logHottestDays };
